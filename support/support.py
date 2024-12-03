@@ -3,10 +3,10 @@ from __future__ import annotations
 import contextlib
 import sys
 import time
+import re
 
 def parse_numbers_split(s: str) -> list[int]:
     return [int(x) for x in s.split()]
-
 
 def parse_numbers_comma(s: str) -> list[int]:
     return [int(x) for x in s.strip().split(',')]
@@ -26,3 +26,5 @@ def timing(name: str = '') -> Generator[None, None, None]:
         if name:
             name = f' ({name})'
         print(f'> {int(t)} {unit}{name}', file=sys.stderr, flush=True)
+
+

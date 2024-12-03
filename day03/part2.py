@@ -4,44 +4,37 @@ import argparse
 import os.path
 
 import pytest
+import re
 
 import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
+pattern = r"mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)"
+nums_pattern = r"(\d{1,3})"
+
 
 def compute(s: str) -> int:
-    ret = 0
-    left = []
-    right = []
+    total = 0
+    do = True
 
-    lines = s.splitlines()
-    for line in lines:
-        numbers = support.parse_numbers_split(line)
-        left.append(numbers[0])
-        right.append(numbers[1])
-
-    assert len(right) == len(left)
-    left.sort()
-    right.sort()
-
-    while len(left) > 0 and len(right) > 0:
-        l = left.pop()
-        r = right.pop()
-        ret += abs(l - r)
-
-    return ret
+    matches = re.findall(pattern, s)
+    for m in matches:
+        if m == "don't()":
+            do = False
+        elif m == "do()":
+            do = True
+        else:
+            if do:
+                nums = re.findall(nums_pattern, m)
+                total += int(nums[0]) * int(nums[1])
+    return total
 
 
 INPUT_S = """\
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
+        xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
 """
-EXPECTED = 11
+EXPECTED = 48
 
 
 @pytest.mark.parametrize(
@@ -65,3 +58,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

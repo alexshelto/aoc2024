@@ -5,7 +5,7 @@ import os.path
 import pytest
 import support
 
-INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
+INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
 
 def compute(s: str) -> int:
@@ -17,9 +17,11 @@ def compute(s: str) -> int:
             ret += 1
     return ret
 
+
 MAX_DIFFERENCE = 3
 
-def is_safe(l: list[int]) -> bool: 
+
+def is_safe(l: list[int]) -> bool:
     differs = [a - b for a, b in zip(l, l[1:])]
 
     isMonotonic = all(i > 0 for i in differs) or all(i < 0 for i in differs)
@@ -28,22 +30,20 @@ def is_safe(l: list[int]) -> bool:
     return isMonotonic and inRange
 
 
-INPUT_S = '''\
+INPUT_S = """\
 7 6 4 2 1
 1 2 7 8 9
 9 7 6 2 1
 1 3 2 4 5
 8 6 4 4 1
 1 3 6 7 9
-'''
+"""
 EXPECTED = 2
 
 
 @pytest.mark.parametrize(
-    ('input_s', 'expected'),
-    (
-        (INPUT_S, EXPECTED),
-    ),
+    ("input_s", "expected"),
+    ((INPUT_S, EXPECTED),),
 )
 def test(input_s: str, expected: int) -> None:
     assert compute(input_s) == expected
@@ -51,7 +51,7 @@ def test(input_s: str, expected: int) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_file', nargs='?', default=INPUT_TXT)
+    parser.add_argument("data_file", nargs="?", default=INPUT_TXT)
     args = parser.parse_args()
 
     with open(args.data_file) as f, support.timing():
@@ -60,5 +60,5 @@ def main() -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

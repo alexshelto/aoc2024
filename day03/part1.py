@@ -4,44 +4,27 @@ import argparse
 import os.path
 
 import pytest
+import re
 
 import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
+pattern = r"mul\((\d{1,3}),(\d{1,3})\)"
+
 
 def compute(s: str) -> int:
-    ret = 0
-    left = []
-    right = []
-
-    lines = s.splitlines()
-    for line in lines:
-        numbers = support.parse_numbers_split(line)
-        left.append(numbers[0])
-        right.append(numbers[1])
-
-    assert len(right) == len(left)
-    left.sort()
-    right.sort()
-
-    while len(left) > 0 and len(right) > 0:
-        l = left.pop()
-        r = right.pop()
-        ret += abs(l - r)
-
-    return ret
+    total = 0
+    matches = re.findall(pattern, s)
+    for tup in matches:
+        total += int(tup[0]) * int(tup[1])
+    return total
 
 
 INPUT_S = """\
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
+xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
 """
-EXPECTED = 11
+EXPECTED = 161
 
 
 @pytest.mark.parametrize(
