@@ -4,8 +4,6 @@ import argparse
 import pytest
 import os.path
 
-from typing import Tuple
-
 import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
@@ -33,11 +31,11 @@ DIRECTIONS = [
 def can_spell_xmas_from_point(
     p: tuple[int, int], coords: dict[tuple[int, int], str]
 ) -> bool:
-    count = 0
 
     # Use offsets and get diagonal points
     for offset in DIRECTIONS:
-        p1 = support.GridNav.next_n_points(offset[0], p, 1)[0]  # index 0 only 1 point
+        p1 = support.GridNav.next_n_points(offset[0], p, 1)[
+            0]  # index 0 only 1 point
         p2 = support.GridNav.next_n_points(offset[1], p, 1)[0]
 
         letters = {coords.get(p1, "."), coords.get(p2, ".")}

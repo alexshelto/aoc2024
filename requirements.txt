@@ -1,4 +1,5 @@
 -e support
-black
+autopep8
+flake8
 pytest
 mypy

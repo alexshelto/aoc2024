@@ -4,8 +4,6 @@ import argparse
 import pytest
 import os.path
 
-from typing import Tuple
-
 import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
