@@ -6,6 +6,8 @@ import sys
 import time
 import re
 
+from typing import Generator
+
 
 def parse_numbers_split(s: str) -> list[int]:
     return [int(x) for x in s.split()]
@@ -51,9 +53,9 @@ def parse_coords_str(s: str) -> dict[tuple[int, int], str]:
     return coords
 
 
-
 class XY_8Offsets(enum.Enum):
     """Enum to define directional offsets."""
+
     UP = (0, -1)
     DOWN = (0, 1)
     LEFT = (-1, 0)
@@ -63,17 +65,14 @@ class XY_8Offsets(enum.Enum):
     DOWN_LEFT = (-1, 1)
     DOWN_RIGHT = (1, 1)
 
-class GridNav: 
+
+class GridNav:
 
     @staticmethod
-    def next_n_points(direction: Direction, start_point: tuple[int, int], n: int) -> list[tuple[int, int]]:
-        """
-        :param direction: The direction as a Direction Enum.
-        :param start_point: The starting (x, y) point as a tuple.
-        :param n: The number of points to retrieve.
-        :return: A list of tuples representing the next n points in the specified direction.
-        """
-        dx, dy = direction.value  # Get the offset from the direction
+    def next_n_points(
+        offset: XY_8Offsets, start_point: tuple[int, int], n: int
+    ) -> list[tuple[int, int]]:
+        dx, dy = offset.value  # Get the offset from the direction
         x, y = start_point
 
         return [(x + i * dx, y + i * dy) for i in range(1, n + 1)]

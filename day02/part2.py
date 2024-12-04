@@ -40,7 +40,7 @@ def is_safe(l: list[int], skip_index: int | None) -> bool:
     isMonotonic = all(i > 0 for i in differs) or all(i < 0 for i in differs)
     inRange = all(abs(i) <= 3 for i in differs)
 
-    return isMonotonic and isInRange
+    return isMonotonic and inRange
 
 
 def main() -> int:

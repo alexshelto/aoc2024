@@ -8,6 +8,7 @@ import support
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
+
 def compute(s: str) -> int:
     numbers = support.parse_numbers_split(s)
     for n in numbers:
@@ -18,6 +19,7 @@ def compute(s: str) -> int:
         pass
     # TODO: implement solution here!
     return 0
+
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -50,4 +52,3 @@ EXPECTED = 1
 )
 def test(input_s: str, expected: int) -> None:
     assert compute(input_s) == expected
-

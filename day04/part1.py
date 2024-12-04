@@ -24,7 +24,7 @@ def compute(s: str) -> int:
     return count
 
 
-def is_xmas(p: tuple[int, int], coords: dict[tuple[int, int], str]) -> bool:
+def is_xmas(p: tuple[int, int], coords: dict[tuple[int, int], str]) -> int:
     count = 0
 
     # Take the next 3 points in each direction:

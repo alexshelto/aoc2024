@@ -31,7 +31,7 @@ DIRECTIONS = [
 
 
 def can_spell_xmas_from_point(
-    p: tuple[int, int], coords: dict[tuple[int, int], int]
+    p: tuple[int, int], coords: dict[tuple[int, int], str]
 ) -> bool:
     count = 0
 
