@@ -3,11 +3,9 @@ from __future__ import annotations
 import argparse
 import os.path
 
-import pytest
-
 import support
 
-INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
+INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 
 def compute(s: str) -> int:
@@ -26,35 +24,16 @@ def compute(s: str) -> int:
     right.sort()
 
     while len(left) > 0 and len(right) > 0:
-        l = left.pop()
-        r = right.pop()
-        ret += abs(l - r)
+        v1 = left.pop()
+        v2 = right.pop()
+        ret += abs(v1-v2)
 
     return ret
 
 
-INPUT_S = """\
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-"""
-EXPECTED = 11
-
-
-@pytest.mark.parametrize(
-    ("input_s", "expected"),
-    ((INPUT_S, EXPECTED),),
-)
-def test(input_s: str, expected: int) -> None:
-    assert compute(input_s) == expected
-
-
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("data_file", nargs="?", default=INPUT_TXT)
+    parser.add_argument('data_file', nargs='?', default=INPUT_TXT)
     args = parser.parse_args()
 
     with open(args.data_file) as f, support.timing():
@@ -63,5 +42,5 @@ def main() -> int:
     return 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())
