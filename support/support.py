@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import enum
 import sys
 import time
 import re
@@ -39,6 +40,43 @@ def parse_coords_int(s: str) -> dict[tuple[int, int], int]:
         for x_idx, val in enumerate(line):
             coords[(x_idx, y_idx)] = int(val)
     return coords
+
+
+def parse_coords_str(s: str) -> dict[tuple[int, int], str]:
+    """parse numbers into coordinate system"""
+    coords = {}
+    for y_idx, line in enumerate(s.splitlines()):
+        for x_idx, val in enumerate(line):
+            coords[(x_idx, y_idx)] = val
+    return coords
+
+
+
+class XY_8Offsets(enum.Enum):
+    """Enum to define directional offsets."""
+    UP = (0, -1)
+    DOWN = (0, 1)
+    LEFT = (-1, 0)
+    RIGHT = (1, 0)
+    UP_LEFT = (-1, -1)
+    UP_RIGHT = (1, -1)
+    DOWN_LEFT = (-1, 1)
+    DOWN_RIGHT = (1, 1)
+
+class GridNav: 
+
+    @staticmethod
+    def next_n_points(direction: Direction, start_point: tuple[int, int], n: int) -> list[tuple[int, int]]:
+        """
+        :param direction: The direction as a Direction Enum.
+        :param start_point: The starting (x, y) point as a tuple.
+        :param n: The number of points to retrieve.
+        :return: A list of tuples representing the next n points in the specified direction.
+        """
+        dx, dy = direction.value  # Get the offset from the direction
+        x, y = start_point
+
+        return [(x + i * dx, y + i * dy) for i in range(1, n + 1)]
 
 
 @contextlib.contextmanager
