@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+from collections import defaultdict
 import pytest
+from typing import DefaultDict
 import os.path
 
 import support
@@ -9,18 +11,16 @@ import support
 INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 
-def build_after_dict(s: str) -> dict[int, set[int]]:
-    seen_after: dict[int, set[int]] = {}
+def build_after_dict(s: str) -> DefaultDict[int, set[int]]:
+    seen_after: DefaultDict[int, set[int]] = defaultdict(set)
     for line in s.splitlines():
         before, after = line.split('|')
-        if int(after) not in seen_after:
-            seen_after[int(after)] = set()
         seen_after[int(after)].add(int(before))
 
     return seen_after
 
 
-def is_valid_line(ar: list[int], d: dict[int, set[int]]) -> bool:
+def is_valid_line(ar: list[int], d: DefaultDict[int, set[int]]) -> bool:
     for x in range(len(ar)):
         for y in range(x + 1, len(ar)):
             ptr = ar[y]
