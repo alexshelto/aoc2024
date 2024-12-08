@@ -43,8 +43,6 @@ def compute(s: str) -> int:
 
                 posNextPoint = first
 
-                print('first: ', first, type(first[1]))
-
                 while True:
                     posNextPoint = add_points(posNextPoint, slope)
 

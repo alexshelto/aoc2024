@@ -41,12 +41,6 @@ def compute(s: str) -> int:
                     continue
                 slope = (second[0]-first[0], second[1] - first[1])
 
-                print('slope: ', slope)
-
-                print(f'slope type: {type(slope)}')
-                print(f'first num type: {type(slope[0])}')
-                print(f'second num type: {type(slope[1])}')
-
                 relative = double_point(slope)
                 abs_anti = add_points(first, relative)
 
